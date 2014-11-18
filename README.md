@@ -11,7 +11,9 @@ A script to validate PO files.
 
 ## Usage
 
-* node po-validate.js POFILE.po
+```
+$ node po-validate.js POFILE.po
+```
 
 ## Example
 
