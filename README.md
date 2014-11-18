@@ -13,6 +13,23 @@ A script to validate PO files.
 
 * node po-validate.js POFILE.po
 
-## More Detail
+## Example
 
-Fix Me.
+When po-validator detects some errors:
+
+```
+$ node po-validate.js sample-data/wrong-ja.po 
+Error:
+ Hello, %s! 
+ こんにちは、％s！ 
+
+
+Validation Error Detected!
+```
+
+When po-validator doesn't detect any errors:
+
+```
+$ node po-validate.js sample-data/correct-ja.po 
+No Validation Error Detected!
+```
