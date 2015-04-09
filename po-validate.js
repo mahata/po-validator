@@ -17,19 +17,20 @@ if (!fs.existsSync(process.argv[2]) || !fs.statSync(process.argv[2]).isFile()) {
 var validateUnindexed = function(orig, trans) {
     var _ref1, _ref2;
     return ((_ref1 = orig.match(/%[sd@]/g)) != null ? _ref1.toString() : void 0) === ((_ref2 = trans.match(/%[sd@]/g)) != null ? _ref2.toString() : void 0);
-}
+};
+
 var validateIndexed = function(orig, trans) {
     var _ref1, _ref2,
     _reg = /%[0-9]+\\?\$[sd@]/g;
     return ((_ref1 = orig.match(_reg)) != null ? _ref1.sort().toString() : void 0) === ((_ref2 = trans.match(_reg)) != null ? _ref2.sort().toString() : void 0);
-}
+};
 
 var isError = false;
 
 // main
 fs.readFile(process.argv[2], function (err, buffer) {
     var jsonData = po2json.parse(buffer);
-    for (line in jsonData) {
+    for (var line in jsonData) {
         if (!Array.isArray(jsonData[line])) continue;
         if (jsonData[line][1] === "")       continue;
 
