@@ -30,7 +30,7 @@ fs.readFile(process.argv[2], function (err, buffer) {
     var errors = {};
     var jsonWithFuzzyData = po2json.parse(buffer, { fuzzy: true });
     var jsonData = po2json.parse(buffer, { fuzzy: false });
-    var FuzzyTranslationNum = Object.keys(jsonWithFuzzyData).length - Object.keys(jsonData).length;
+    var fuzzyTranslationNum = Object.keys(jsonWithFuzzyData).length - Object.keys(jsonData).length;
     var isError = false;
 
     for (var line in jsonData) {
@@ -52,8 +52,8 @@ fs.readFile(process.argv[2], function (err, buffer) {
         isError = true;
     }
 
-    if (0 < FuzzyTranslationNum) {
-        console.log(red + "There's " + FuzzyTranslationNum + " fuzzy string(s) in the PO file!" + reset);
+    if (0 < fuzzyTranslationNum) {
+        console.log(red + "There's " + fuzzyTranslationNum + " fuzzy string(s) in the PO file!" + reset);
         isError = true;
     }
 
