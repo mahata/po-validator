@@ -28,7 +28,11 @@ var validateIndexed = function(orig, trans) {
 // main
 fs.readFile(process.argv[2], function (err, buffer) {
     var errors = {};
+    var jsonWithFuzzyData = po2json.parse(buffer, { fuzzy: true });
     var jsonData = po2json.parse(buffer, { fuzzy: false });
+    var FuzzyTranslationNum = Object.keys(jsonWithFuzzyData).length - Object.keys(jsonData).length;
+    var isError = false;
+
     for (var line in jsonData) {
         if (!Array.isArray(jsonData[line])) continue;
         if (jsonData[line][1] === "")       continue;
@@ -40,12 +44,20 @@ fs.readFile(process.argv[2], function (err, buffer) {
         }
     }
 
-    if (Object.keys(errors).length === 0) {
-        console.log(green + "No Validation Error Detected!" + reset);
-    } else {
+    if (0 < Object.keys(errors).length) {
         console.log(red + "Validation Error Detected!" + reset);
         for (var errorKey in errors) {
             console.log(red + "Error:\n", errorKey, "\n", errors[errorKey], "\n\n" + reset);
         }
+        isError = true;
+    }
+
+    if (0 < FuzzyTranslationNum) {
+        console.log(red + "There's " + FuzzyTranslationNum + " fuzzy string(s) in the PO file!" + reset);
+        isError = true;
+    }
+
+    if (!isError) {
+        console.log(green + "No Validation Error Detected!" + reset);
     }
 });
