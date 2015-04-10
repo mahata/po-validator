@@ -25,11 +25,10 @@ var validateIndexed = function(orig, trans) {
     return ((_ref1 = orig.match(_reg)) != null ? _ref1.sort().toString() : void 0) === ((_ref2 = trans.match(_reg)) != null ? _ref2.sort().toString() : void 0);
 };
 
-var isError = false;
-
 // main
 fs.readFile(process.argv[2], function (err, buffer) {
-    var jsonData = po2json.parse(buffer);
+    var errors = {};
+    var jsonData = po2json.parse(buffer, { fuzzy: false });
     for (var line in jsonData) {
         if (!Array.isArray(jsonData[line])) continue;
         if (jsonData[line][1] === "")       continue;
@@ -37,18 +36,16 @@ fs.readFile(process.argv[2], function (err, buffer) {
         if (!validateUnindexed(line, jsonData[line][1]) ||
             !validateIndexed(line, jsonData[line][1])) {
 
-            console.log(red + "Error:\n", line, "\n", jsonData[line][1], "\n\n" + reset);
-            isError = true;
+            errors[line] = jsonData[line][1];
         }
     }
 
-    if (isError) {
+    if (Object.keys(errors).length === 0) {
+        console.log(green + "No Validation Error Detected!" + reset);
+    } else {
         console.log(red + "Validation Error Detected!" + reset);
-        process.exit(1);
+        for (var errorKey in errors) {
+            console.log(red + "Error:\n", errorKey, "\n", errors[errorKey], "\n\n" + reset);
+        }
     }
-
-    console.log(green + "No Validation Error Detected!" + reset);
-    process.exit(0);
 });
-
-
