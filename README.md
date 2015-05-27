@@ -2,12 +2,11 @@
 
 A script to validate PO files.
 
-## Prerequisites
+## Installation
 
-* Node.js
-    * npm install po2json
-    * npm install lodash
-    * npm install gettext-parser
+```
+$ npm install
+```
 
 ## Usage
 
