@@ -1,0 +1,29 @@
+{
+  "name": "po-validator",
+  "version": "1.0.0",
+  "description": "Validates PO files similarly to Pootle",
+  "main": "po-validate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahata/po-validator.git"
+  },
+  "keywords": [
+    "pootle",
+    "po",
+    "validator"
+  ],
+  "author": "Yasunori Mahata",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mahata/po-validator/issues"
+  },
+  "homepage": "https://github.com/mahata/po-validator",
+  "dependencies": {
+    "gettext-parser": "^1.1.0",
+    "lodash": "^3.9.3",
+    "po2json": "^0.4.1"
+  }
+}
